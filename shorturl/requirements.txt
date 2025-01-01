@@ -35,7 +35,7 @@ idna==3.7
 iso639==0.1.4
 itsdangerous==2.2.0
 jedi==0.17.2
-Jinja2==3.1.4
+Jinja2==3.1.5
 jmespath==1.0.1
 langtable==0.0.68
 libcomps==0.1.21
