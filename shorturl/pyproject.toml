@@ -1,0 +1,13 @@
+[project]
+name = "shorturl"
+version = "0.1.0"
+description = "URL shortener"
+readme = "README.md"
+authors = [
+    { name = "Aero", email = "aerocyberdev@proton.me" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.0",
+    "validators>=0.34.0",
+]
