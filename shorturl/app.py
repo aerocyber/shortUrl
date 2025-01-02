@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 import validators
 import os
 import datetime
@@ -71,7 +71,7 @@ def shorten():
         return shorty, 200
     
 @app.route('/redirect/<shorty>')
-def redirect(shorty):
+def redirect_url(shorty):
     """Get url to the long url
 
     Args:
@@ -97,7 +97,8 @@ def redirect(shorty):
         result = databases.update_document(APPWRITE_DB_ID, APPWRITE_COLLECTION_ID, doc['documents'][0]['$id'], {'monthly-click': 0})
 
     result = databases.update_document(APPWRITE_DB_ID, APPWRITE_COLLECTION_ID, doc['documents'][0]['$id'], {'monthly-click': doc['documents'][0]['monthly-click'] + 1, 'weekly-click': doc['documents'][0]['weekly-click'] + 1})
-    return {"URL": doc["documents"][0]['long-url'], "monthly-click": doc['documents'][0]['monthly-click'], "weekly-click": doc['documents'][0]['weekly-click']}
+    # return {"URL": doc["documents"][0]['long-url'], "monthly-click": doc['documents'][0]['monthly-click'], "weekly-click": doc['documents'][0]['weekly-click']}
+    return redirect(doc["documents"][0]['long-url'], code=302)
 
 @app.route('/statistics/<shorty>')
 def statistics(shorty):
