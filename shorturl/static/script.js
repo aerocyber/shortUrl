@@ -30,5 +30,27 @@ async function shortenBtnClicked() {
     } catch (error) {
         console.error(error.message);
     }
-    
+}
+
+function statsBtnClicked() {
+    const shortcode = document.getElementById('short-code').value;
+    if (shortcode === '' || shortcode === null) {
+        document.getElementById('err-text').innerHTML = `Encountered an error: No shortcode entered`;
+        return;
+    }
+    document.getElementById('err-text').innerHTML = '';
+    document.getElementById('success-text').innerHTML = '';
+    window.location.href = BASE_URL + 'stats/' + shortcode;
+}
+
+function statsPageLoad() {
+    const shortcode = new URLSearchParams(window.location.search).get('shortcode');
+    if (shortcode === '' || shortcode === null) {
+        document.getElementById('error').classList.toggle('hide');
+        document.getElementById('err-text').innerHTML = `Encountered an error: No shortcode entered`;
+        return;
+    }
+    document.getElementById('err-text').innerHTML = '';
+    document.getElementById('success-text').innerHTML = '';
+    document.getElementById('shortcode').innerHTML = shortcode;
 }

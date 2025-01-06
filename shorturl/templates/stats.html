@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Stats</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        {% if short_stats %}
+            <h1>Link Stats</h1>
+            <h2>Short Code: {{ shorty }}</h2>
+            <table>
+                <tr>
+                    <th>Long URL</th>
+                    <th>Weekly Clicks</th>
+                    <th>Monthly Clicks</th>
+                </tr>
+                <tr>
+                    <td>{{ short_stats.URL }}</td>
+                    <td>{{ short_stats["weekly-click"] }}</td>
+                    <td>{{ short_stats["monthly-click"] }}</td>
+                </tr>
+            </table>
+        {% else %}
+        {% endif %}
+        <div class="footer">
+            Copyright (C) 2024 - present <br>
+            Licensed under the terms of MIT License
+        </div>
+    </div>
+</body>
+</html>

@@ -53,3 +53,42 @@ input:focus {
 .hide {
     display: none;
 }
+
+table {
+    margin-top: 15%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+tr {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+}
+
+tr:hover {
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+th {
+    text-align: center;
+    border-radius: 10px;
+}
+
+th:hover {
+    background-color: darkslategrey;
+    color: white;
+    border-radius: 10px;
+}
+
+td {
+    text-align: center;
+    border-radius: 10px;
+}
+
+td:hover {
+    background-color: darkslategrey;
+    color: white;
+    border-radius: 10px;
+}

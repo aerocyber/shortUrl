@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, make_response,send_file
+from flask import Flask, render_template, request, redirect, make_response,send_file
 import validators
 import os
 import datetime
@@ -172,3 +172,9 @@ def index():
     resp = make_response(send_file("templates/index.html"))
     resp.headers.add("Access-Control-Allow-Origin", "*")
     return resp, 200
+
+@app.route('/stats/<shorty>')
+def stats(shorty):
+    short_stats = statistics(shorty)
+    print(short_stats)
+    return render_template("stats.html", short_stats=short_stats, shorty=shorty)
