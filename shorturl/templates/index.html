@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortURL: Shorten that Link!</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="shorten">
+            <h2>Shorten</h2>
+            <input type="url" name="long-url" id="long-url" placeholder="Enter your long URL">
+            <button onclick="shortenBtnClicked()">Shorten</button>
+        </div>
+        <div class="stats">
+            <h2>Statistics</h2>
+            <input type="text" name="short-code" id="short-code" placeholder="Enter the 5 letter short code">
+            <button>Get Link Stats</button>
+        </div>
+        <div class="hide" id="error">
+            <h2>Error</h2>
+            <p id="err-text"></p>
+        </div>
+        <div class="hide" id="success">
+            <h2>Success</h2>
+            <p id="success-text"></p>
+        </div>
+        <div class="footer">
+            Copyright (C) 2024 - present <br>
+            Licensed under the terms of MIT License
+        </div>
+    </div>
+</body>
+</html>

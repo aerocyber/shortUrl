@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, make_response,send_file
 import validators
 import os
 import datetime
@@ -57,18 +57,20 @@ def shorten():
         
         if not "long-url" in data.keys():
             err = "Missing parameter 'long-url'"
-            raise Exception(err)
+            return err, 400
         
-        if not validators.url(data["long-url"]):
+        if not validators.url(data["long-url"], consider_tld=True, private=False):
             err = "Invalid URL"
-            raise Exception(err)
-        
+            return err, 400 
         url = data['long-url']
     except Exception as e:
-        return e, 400
+        return str(e), 400
     else:
         shorty = db_put(url)
-        return shorty, 200
+        # ret = make_response(shorty)
+        # ret.headers.add("Access-Control-Allow-Origin", "*")
+        # return ret, 200
+        return shorty
     
 @app.route('/redirect/<shorty>')
 def redirect_url(shorty):
@@ -99,6 +101,9 @@ def redirect_url(shorty):
     result = databases.update_document(APPWRITE_DB_ID, APPWRITE_COLLECTION_ID, doc['documents'][0]['$id'], {'monthly-click': doc['documents'][0]['monthly-click'] + 1, 'weekly-click': doc['documents'][0]['weekly-click'] + 1})
     # return {"URL": doc["documents"][0]['long-url'], "monthly-click": doc['documents'][0]['monthly-click'], "weekly-click": doc['documents'][0]['weekly-click']}
     return redirect(doc["documents"][0]['long-url'], code=302)
+    # ret = make_response(shorty)
+    # ret.headers.add("Access-Control-Allow-Origin", "*")
+    # return ret
 
 @app.route('/statistics/<shorty>')
 def statistics(shorty):
@@ -128,7 +133,10 @@ def statistics(shorty):
         result = databases.update_document(APPWRITE_DB_ID, APPWRITE_COLLECTION_ID, doc['documents'][0]['$id'], {'monthly-click': 0})
         
     
-    return {"URL": doc["documents"][0]['long-url'], "monthly-click": doc['documents'][0]['monthly-click'], "weekly-click": doc['documents'][0]['weekly-click']}
+    r = {"URL": doc["documents"][0]['long-url'], "monthly-click": doc['documents'][0]['monthly-click'], "weekly-click": doc['documents'][0]['weekly-click']}
+    # ret = make_response(r)
+    # ret.headers.add("Access-Control-Allow-Origin", "*")
+    return r
 
 def db_put(url): # TODO: Put url into db
     shorty = gen_shorty()
@@ -157,3 +165,10 @@ def gen_shorty():
         return gen_shorty()
 
     return tmp
+
+
+@app.route('/')
+def index():
+    resp = make_response(send_file("templates/index.html"))
+    resp.headers.add("Access-Control-Allow-Origin", "*")
+    return resp, 200
