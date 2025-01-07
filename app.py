@@ -50,8 +50,6 @@ def shorten():
     """
     err = "No JSON data found"
     url = ''
-    if request.method != "POST":
-        return 400, "Expected a POST request"
     try:
         data = request.get_json(force=True)
         

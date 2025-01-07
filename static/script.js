@@ -3,7 +3,7 @@ const BASE_URL = location.href;
 console.log(BASE_URL);
 
 async function shortenBtnClicked() {
-    const endpoint_url = BASE_URL + '/shorten';
+    const endpoint_url = BASE_URL + 'shorten';
     const url = document.getElementById('long-url').value;
     if (url === '' || url === null) {
         document.getElementById('err-text').innerHTML = `Encountered an error: No URL entered`;
